@@ -6,6 +6,6 @@ public class SantoriniGame {
 
 	public SantoriniGame() {
 		board = new String[5][5];
-		workers = new Worker[4];
+		workers = new Worker[4]; // Uncertain
 	}
 }
