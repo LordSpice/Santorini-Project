@@ -1,0 +1,11 @@
+
+public class SantoriniGame {
+
+	private String[][] board = new String[5][5];
+	private Worker[] workers = {new Worker("w11"), new Worker("w12"), new Worker("w21"), new Worker("w22")};
+
+	public SantoriniGame() {
+		board = new String[5][5];
+		workers = new Worker[4];
+	}
+}
