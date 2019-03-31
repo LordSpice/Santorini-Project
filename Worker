@@ -8,6 +8,18 @@ public class Worker {
 	public Worker(String newName) {
 		name = newName;
 	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public int getPositionX() {
+		return positionX;
+	}
+
+	public int getPositionY() {
+		return positionY;
+	}
 
 	public void placeWorker(int initialX, int initialY) {
 		positionX = initialX;
@@ -15,7 +27,7 @@ public class Worker {
 	}
 
 	/*
-	 * public boolean move(int newPosX, int newPosY, SantoriniGame game)
+	 * public boolean move(int newPosX, int newPosY, SantoriniGame game) 
 	 * Create SantoriniGame class to determine conditions
 	 */
 }
