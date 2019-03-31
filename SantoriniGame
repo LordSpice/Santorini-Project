@@ -7,5 +7,15 @@ public class SantoriniGame {
 	public SantoriniGame() {
 		board = new String[5][5];
 		workers = new Worker[4]; // Uncertain
+	
+		workers[1] = new Worker("w11");
+		workers[2] = new Worker("w12");
+		workers[3] = new Worker("w21");
+		workers[4] = new Worker("w22");
 	}
+
+	/*
+	 * public Worker accessWorker(int i) { return workers[i]; }
+	 * Used for testing worker names
+	 */
 }
