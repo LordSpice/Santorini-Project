@@ -1,0 +1,21 @@
+
+public class Worker {
+
+	private String name = "";
+	private int positionX = 0;
+	private int positionY = 0;
+
+	public Worker(String newName) {
+		name = newName;
+	}
+
+	public void placeWorker(int initialX, int initialY) {
+		positionX = initialX;
+		positionY = initialY;
+	}
+
+	/*
+	 * public boolean move(int newPosX, int newPosY, SantoriniGame game)
+	 * Create SantoriniGame class to determine conditions
+	 */
+}
