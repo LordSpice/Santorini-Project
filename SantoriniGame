@@ -1,21 +1,50 @@
 
 public class SantoriniGame {
 
-	private String[][] board = new String[5][5];
-	private Worker[] workers = {new Worker("w11"), new Worker("w12"), new Worker("w21"), new Worker("w22")};
+	private int[][] board = new int[5][5]; // Changed to int for easier future coding
+	private Worker[] workers = { new Worker("w11"), new Worker("w12"), new Worker("w21"), new Worker("w22") };
 
 	public SantoriniGame() {
-		board = new String[5][5];
-		workers = new Worker[4]; // Uncertain
-	
+		board = new int[5][5];
+		workers = new Worker[4];
+
 		workers[1] = new Worker("w11");
 		workers[2] = new Worker("w12");
 		workers[3] = new Worker("w21");
 		workers[4] = new Worker("w22");
 	}
 
+	public String toString() {
+		String rep = ""; // rep == representation
+
+		for (int row = 0; row < 5; row++) {
+			for (int col = 0; col < 5; col++) {
+				String block = "";
+
+				if (board[row][col] < 4)
+					for (int i = 0; i < board[row][col]; i++) {
+						block += "B";
+					}
+				else if (board[row][col] == 4)
+					block = "BBBD";
+
+				for (int i = 0; i < workers.length; i++) {
+					if (workers[i].getPositionX() == row && workers[i].getPositionY() == col) {
+						block += workers[i].getName();
+					}
+				}
+				
+				System.out.print(block + "   ");
+			}
+			
+			System.out.println();
+		}
+
+		return rep;
+	}
+	
 	/*
-	 * public Worker accessWorker(int i) { return workers[i]; }
-	 * Used for testing worker names
+	 * public Worker accessWorker(int i) { return workers[i]; } Used for testing
+	 * worker names
 	 */
 }
