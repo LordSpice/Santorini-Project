@@ -27,7 +27,8 @@ public class Worker {
 	}
 
 	public boolean move(int newPosX, int newPosY, SantoriniGame game) {
-		if (Math.abs(newPosX - positionX) == 1 && Math.abs(newPosY - positionY) == 1) {
+		int[][] board = game.getBoard();
+		if (Math.abs(newPosX - positionX) <= 1 && Math.abs(newPosY - positionY) <= 1 && board[newPosX][newPosY] != 4) {
 			return true;
 		} else
 			return false;
