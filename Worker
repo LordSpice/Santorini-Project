@@ -26,9 +26,11 @@ public class Worker {
 		positionY = initialY;
 	}
 
-	public boolean move(int newPosX, int newPosY, SantoriniGame game) {
+	public boolean move(int newPosX, int newPosY, SantoriniGame game) { // Should the method move the worker as well?
 		int[][] board = game.getBoard();
 		if (Math.abs(newPosX - positionX) <= 1 && Math.abs(newPosY - positionY) <= 1 && board[newPosX][newPosY] != 4) {
+			positionX = newPosX;
+			positionY = newPosY;
 			return true;
 		} else
 			return false;
