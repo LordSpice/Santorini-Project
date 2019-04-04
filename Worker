@@ -8,7 +8,7 @@ public class Worker {
 	public Worker(String newName) {
 		name = newName;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -26,8 +26,10 @@ public class Worker {
 		positionY = initialY;
 	}
 
-	/*
-	 * public boolean move(int newPosX, int newPosY, SantoriniGame game) 
-	 * Create SantoriniGame class to determine conditions
-	 */
+	public boolean move(int newPosX, int newPosY, SantoriniGame game) {
+		if (Math.abs(newPosX - positionX) == 1 && Math.abs(newPosY - positionY) == 1) {
+			return true;
+		} else
+			return false;
+	}
 }
