@@ -26,12 +26,26 @@ public class Worker {
 		positionY = initialY;
 	}
 
-	public boolean move(int newPosX, int newPosY, SantoriniGame game) { // Should the method move the worker as well?
+	public boolean move(int newPosX, int newPosY, SantoriniGame game) { // Should the method move the worker as well? | Can player stay still?
 		int[][] board = game.getBoard();
-		if (Math.abs(newPosX - positionX) <= 1 && Math.abs(newPosY - positionY) <= 1 && board[newPosX][newPosY] != 4) {
-			positionX = newPosX;
-			positionY = newPosY;
-			return true;
+		if (Math.abs(newPosX - positionX) <= 1 && Math.abs(newPosY - positionY) <= 1 && board[newPosX][newPosY] < 4) {
+			boolean noWorker = true;
+			Worker[] workers = game.getWorkers();
+			
+			for (int i = 0; i < workers.length; i++) {
+				if (workers[i].getPositionX() == newPosX && workers[i].getPositionY() == newPosY) {
+					noWorker = false;
+					break;
+				}
+			}
+			
+			if (noWorker) {
+				positionX = newPosX;
+				positionY = newPosY;
+				return true;
+			} else
+				return false;
+			
 		} else
 			return false;
 	}
