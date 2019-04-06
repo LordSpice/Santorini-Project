@@ -59,12 +59,45 @@ public class SantoriniGame {
 		}
 		
 		if (board[positionX][positionY] < 4) { // To check if the tile is no more than three level
-			board[positionX][positionY]++;
+			board[positionX][positionY] += 1;
 			return true;
 		} else
 			return false;
 	}
 
+	public boolean hasWon() {
+		
+		for (int i = 0; i < workers.length; i++) {
+			int posX = workers[i].getPositionX();
+			int posY = workers[i].getPositionY();
+			if (board[posX][posY] == 3)
+				return true;
+		}
+		
+		return false;
+	}
+	
+	public boolean isTrapped() {
+		boolean stuck = false;
+		for (int i = 0; i < workers.length; i++) {
+			int posX = workers[i].getPositionX();
+			int posY = workers[i].getPositionY();
+			
+			if (posX == 0 && posY == 0 || posX == 0 && posY == 4 || posX == 4 && posY == 0 || posX == 4 && posY == 4) {
+				int newPosX = Math.abs(posX - 1);
+				int newPosY = Math.abs(posY - 1);
+				
+				for (int j = 0; j < 3; j++) {
+					
+				}
+			}
+		}
+		return false;
+	}
+	
+	public void reset() {
+		new SantoriniGame();
+	}
 	/*
 	 * public Worker accessWorker(int i) { return workers[i]; } Used for testing
 	 * worker names
