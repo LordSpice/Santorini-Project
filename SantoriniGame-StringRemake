@@ -2,7 +2,7 @@
 public class SantoriniGame {
 
 	private SantoriniGame game;
-	private String[][] board = new String[5][5]; // Changed to int for easier future coding
+	private String[][] board = new String[5][5];
 	private Worker[] workers = { new Worker("w11"), new Worker("w12"), new Worker("w21"), new Worker("w22") };
 
 	public SantoriniGame() {
