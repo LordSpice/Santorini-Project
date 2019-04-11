@@ -1,0 +1,107 @@
+import java.util.Scanner;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
+public class FileReaderGame {
+
+	public static void main(String args[]) {
+
+		Scanner file = null;
+
+		try {
+			file = new Scanner(new FileInputStream("Game.txt"));
+		} catch (FileNotFoundException ERROR) {
+			System.out.println("File not found!");
+			System.exit(0);
+		}
+
+		System.out.println("############ Santorini ############");
+		
+		String player1 = file.next();
+		String player2 = file.next();
+
+		System.out.println();
+		
+		System.out.println("Player1 is: " + player1);
+		System.out.println("Player2 is: " + player2);
+		
+		System.out.println();
+		
+		SantoriniGame game = new SantoriniGame();
+
+		boolean turn = true; // True stands for first player
+		boolean win = false;
+		boolean stuck = false;
+
+		Worker[] workers = game.getWorkers();
+
+		System.out.println("Placing workers");
+		System.out.println();
+		
+		for (int i = 0; i < workers.length; i++) {
+			String worker = file.next();
+			int posX = file.nextInt();
+			int posY = file.nextInt();
+			workers[i] = new Worker(worker);
+			workers[i].placeWorker(posX, posY);
+		}
+		
+		game.setWorkers(workers);
+		
+		System.out.println(game);
+		System.out.println();
+
+		while (!win && !stuck) {
+		
+			if (turn)
+				System.out.println("The turn is for player: " + player1);
+			else
+				System.out.println("The turn is for player: " + player2);
+			
+			String worker = file.next();
+			int posX = file.nextInt();
+			int posY = file.nextInt();
+			int workNum = 0;
+			
+			for (int i = 0; i < workers.length; i++) {
+				if (workers[i].getName().equalsIgnoreCase(worker)) {
+					workNum = i;
+					break;
+				}
+			}
+			
+			System.out.println("Moving worker: " + workers[workNum].getName() + " to " + posX + " " + posY);
+			workers[workNum].move(posX, posY, game);
+			System.out.println(game);
+			System.out.println();
+			
+			int buildX = file.nextInt();
+			int buildY = file.nextInt();
+			
+			System.out.println("Building at position: " + buildX + ", " + buildY);
+			game.build(buildX, buildY);
+			System.out.println(game);
+			System.out.println();
+			
+			/*if (game.isTrapped(0) && game.isTrapped(1)) {
+				System.out.println(player1 + " is stuck!");
+				System.out.println("****Congratulations " + player2 + ", you have won!****");
+				stuck = true;
+			} else if (game.isTrapped(2) && game.isTrapped(3)) {
+				System.out.println(player2 + " is stuck!");
+				System.out.println("****Congratulations " + player1 + ", you have won!****");
+				stuck = true;
+			}
+			*/
+			
+			if (game.hasWon()) {
+				win = true;
+				if (turn)
+					System.out.println("****Congratulations " + player1 + ", you have won!****");
+				else
+					System.out.println("****Congratulations " + player2 + ", you have won!****");
+			}
+			turn = !turn;
+		}
+	}
+}
