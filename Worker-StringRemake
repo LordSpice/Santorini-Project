@@ -1,0 +1,55 @@
+
+public class Worker {
+
+	private String name = "";
+	private int positionX = 0;
+	private int positionY = 0;
+
+	public Worker(String newName) {
+		name = newName;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public int getPositionX() {
+		return positionX;
+	}
+
+	public int getPositionY() {
+		return positionY;
+	}
+
+	public void placeWorker(int initialX, int initialY) {
+		positionX = initialX;
+		positionY = initialY;
+	}
+
+	public boolean move(int newPosX, int newPosY, SantoriniGame game) { // Should the method move the worker as well? |
+																		// Can player stay still?
+		String[][] board = game.getBoard();
+		if (Math.abs(newPosX - positionX) <= 1 && Math.abs(newPosY - positionY) <= 1 && !board[newPosX][newPosY].equalsIgnoreCase("bbbd")
+				&& board[newPosX][newPosY].length() <= board[positionX][positionY].length() + 1) {
+			
+			boolean noWorker = true;
+			Worker[] workers = game.getWorkers();
+
+			for (int i = 0; i < workers.length; i++) {
+				if (workers[i].getPositionX() == newPosX && workers[i].getPositionY() == newPosY) {
+					noWorker = false;
+					break;
+				}
+			}
+
+			if (noWorker) {
+				positionX = newPosX;
+				positionY = newPosY;
+				return true;
+			} else
+				return false;
+
+		} else
+			return false;
+	}
+}
