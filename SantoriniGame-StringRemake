@@ -1,0 +1,136 @@
+
+public class SantoriniGame {
+
+	private SantoriniGame game;
+	private String[][] board = new String[5][5]; // Changed to int for easier future coding
+	private Worker[] workers = { new Worker("w11"), new Worker("w12"), new Worker("w21"), new Worker("w22") };
+
+	public SantoriniGame() {
+		board = new String[5][5];
+
+		for (int row = 0; row < board.length; row++) {
+			for (int col = 0; col < board[row].length; col++)
+				board[row][col] = "";
+		}
+
+		workers = new Worker[4];
+
+		workers[0] = new Worker("w11");
+		workers[1] = new Worker("w12");
+		workers[2] = new Worker("w21");
+		workers[3] = new Worker("w22");
+	}
+
+	public String[][] getBoard() {
+		return board;
+	}
+
+	public Worker[] getWorkers() {
+		return workers;
+	}
+
+	public String toString() {
+		String rep = "#### 0 ####### 1 ####### 2 ####### 3 ####### 4 ####"; // rep == representation
+		rep += "\n";
+
+		for (int row = 0; row < board.length; row++) { // Edit
+			rep += row + " ";
+			for (int col = 0; col < board[row].length; col++) { // Edit
+				String block = "";
+				if (board[row][col].equalsIgnoreCase("")) {
+					block += "";
+				} else if (board[row][col].equalsIgnoreCase("b")) {
+					block += "B";
+				} else if (board[row][col].equalsIgnoreCase("bb")) {
+					block += "BB";
+				} else if (board[row][col].equalsIgnoreCase("bbb"))
+					block += "BBB";
+				else if (board[row][col].equalsIgnoreCase("bbbd"))
+					block += "BBBD";
+
+				for (int i = 0; i < workers.length; i++) {
+					if (workers[i].getPositionX() == row && workers[i].getPositionY() == col) {
+						block += workers[i].getName();
+					}
+				}
+
+				for (int i = 0; block.length() < 7; i++) {
+					block += " ";
+				}
+
+				if (col != board[row].length - 1)
+					rep += block + " | ";
+				else
+					rep += block + " " + row;
+			}
+
+			rep += "\n" + "#-------------------------------------------------#";
+			rep += "\n";
+		}
+
+		rep += "#### 0 ####### 1 ####### 2 ####### 3 ####### 4 ####";
+		return rep;
+	}
+
+	public boolean build(int positionX, int positionY) { // Should the method build as well?
+
+		for (int i = 0; i < workers.length; i++) { // To check if a worker occupies the space
+			if (workers[i].getPositionX() == positionX && workers[i].getPositionY() == positionY) {
+				return false;
+			}
+		}
+
+		if (board[positionX][positionY].equalsIgnoreCase("")) {
+			board[positionX][positionY] = "B";
+			return true;
+		} else if (board[positionX][positionY].equalsIgnoreCase("b")) {
+			board[positionX][positionY] = "BB";
+			return true;
+		} else if (board[positionX][positionY].equalsIgnoreCase("bb")) {
+			board[positionX][positionY] = "BBB";
+			return true;
+		} else if (board[positionX][positionY].equalsIgnoreCase("bbb")) {
+			board[positionX][positionY] = "BBBD";
+			return true;
+		} else
+			return false;
+	}
+
+	public boolean hasWon() {
+
+		for (int i = 0; i < workers.length; i++) {
+			int posX = workers[i].getPositionX();
+			int posY = workers[i].getPositionY();
+			if (board[posX][posY].equalsIgnoreCase("bbb"))
+				return true;
+		}
+
+		return false;
+	}
+
+	public boolean isTrapped(int i) {
+		for (int x = 0; x < board.length; x++) {
+			for (int y = 0; y < board[x].length; y++)
+				if (workers[i].move(x, y, game)) {
+					return false;
+				}
+		}
+		return true;
+	}
+
+	public void reset() {
+		board = new String[5][5];
+
+		for (int row = 0; row < board.length; row++) {
+			for (int col = 0; col < board[row].length; col++)
+				board[row][col] = "";
+		}
+
+		workers = new Worker[4];
+
+		workers[0] = new Worker("w11");
+		workers[1] = new Worker("w12");
+		workers[2] = new Worker("w21");
+		workers[3] = new Worker("w22");
+	}
+}
