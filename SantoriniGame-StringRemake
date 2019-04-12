@@ -1,7 +1,9 @@
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class SantoriniGame {
 
-	private SantoriniGame game;
 	private String[][] board = new String[5][5];
 	private Worker[] workers = { new Worker("w11"), new Worker("w12"), new Worker("w21"), new Worker("w22") };
 
@@ -28,7 +30,7 @@ public class SantoriniGame {
 	public Worker[] getWorkers() {
 		return workers;
 	}
-	
+
 	public void setWorkers(Worker[] newWorkers) {
 		for (int i = 0; i < workers.length; i++) {
 			workers[i] = newWorkers[i];
@@ -115,12 +117,42 @@ public class SantoriniGame {
 	}
 
 	public boolean isTrapped(int i) {
-		for (int x = 0; x < board.length; x++) {
-			for (int y = 0; y < board[x].length; y++)
-				if (workers[i].move(x, y, game)) {
-					return false;
+		int posX = workers[i].getPositionX();
+		int posY = workers[i].getPositionY();
+
+		ArrayList<Integer> neighbours = getNeighbours(posX, posY);
+
+		ArrayList<Boolean> move = new ArrayList<>();
+		
+		for (int index = 0; index < neighbours.size(); index += 2) {
+			if (Math.abs(neighbours.get(index) - workers[i].getPositionX()) <= 1
+					&& Math.abs(neighbours.get(index + 1) - workers[i].getPositionY()) <= 1
+					&& !board[neighbours.get(index)][neighbours.get(index + 1)].equalsIgnoreCase("bbbd")
+					&& board[neighbours.get(index)][neighbours.get(index + 1)]
+							.length() <= board[workers[i].getPositionX()][workers[i].getPositionY()].length() + 1) {
+
+				boolean noWorker = true;
+
+				for (int j = 0; j < workers.length; j++) {
+					if (workers[j].getPositionX() == neighbours.get(index) && workers[j].getPositionY() == neighbours.get(index + 1)) {
+						noWorker = false;
+						break;
+					}
 				}
+
+				if (noWorker) {
+					move.add(true);
+				} else
+					move.add(false);
+
+			}
 		}
+		
+		for (int j = 0; j < move.size(); j++) {
+			if (move.get(j))
+				return false;
+		}
+		
 		return true;
 	}
 
@@ -139,4 +171,56 @@ public class SantoriniGame {
 		workers[2] = new Worker("w21");
 		workers[3] = new Worker("w22");
 	}
+
+	// Additional methods for checking neighbours to use in isTrapper()
+
+	public ArrayList<Integer> getNeighbours(int posX, int posY) {
+		ArrayList<Integer> neighbors = new ArrayList<>();
+
+		if (isCabin(posX, posY)) {
+			if (isCabin(posX + 1, posY)) {
+				neighbors.add(posX + 1);
+				neighbors.add(posY);
+			}
+			if (isCabin(posX - 1, posY)) {
+				neighbors.add(posX - 1);
+				neighbors.add(posY);
+			}
+			if (isCabin(posX, posY + 1)) {
+				neighbors.add(posX);
+				neighbors.add(posY + 1);
+			}
+			if (isCabin(posX, posY - 1)) {
+				neighbors.add(posX);
+				neighbors.add(posY - 1);
+			}
+			if (isCabin(posX - 1, posY + 1)) {
+				neighbors.add(posX - 1);
+				neighbors.add(posY + 1);
+			}
+			if (isCabin(posX + 1, posY - 1)) {
+				neighbors.add(posX + 1);
+				neighbors.add(posY - 1);
+			}
+			if (isCabin(posX + 1, posY + 1)) {
+				neighbors.add(posX + 1);
+				neighbors.add(posY + 1);
+			}
+			if (isCabin(posX - 1, posY - 1)) {
+				neighbors.add(posX - 1);
+				neighbors.add(posY - 1);
+			}
+		}
+
+		return neighbors;
+	}
+
+	public boolean isCabin(int i, int j) {
+		boolean flag = false;
+		if (i >= 0 && i < board.length && j >= 0 && j < board[0].length) {
+			flag = true;
+		}
+		return flag;
+	}
+
 }
