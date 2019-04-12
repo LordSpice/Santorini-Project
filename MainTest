@@ -31,11 +31,12 @@ public class MainTest {
 			Worker[] workers = game.getWorkers();
 
 			if (start == 0) {
-				/* Unnecessary for this test
-				 * System.out.println("Enter the name of player1: "); player1 = input.next();
-				 * System.out.println("Enter the name of player2: "); player2 = input.next();
+				/*
+				 * Unnecessary for this test System.out.println("Enter the name of player1: ");
+				 * player1 = input.next(); System.out.println("Enter the name of player2: ");
+				 * player2 = input.next();
 				 */
-				
+
 				for (int i = 0; i < workers.length; i++) {
 					System.out.println("Initial position: (Worker, X, Y)");
 					worker = input.next();
@@ -74,27 +75,22 @@ public class MainTest {
 
 				if (!game.hasWon()) {
 					if (build) {
-
-						int buildX = 0;
-						int buildY = 0;
-
+						
 						boolean repeat = true;
 
 						do {
 							System.out.println("Enter building action: (buildX, buildY)");
-							buildX = input.nextInt();
+							int buildX = input.nextInt();
 							int checkX = Math.abs(buildX - posX);
-							buildY = input.nextInt();
+							int buildY = input.nextInt();
 							int checkY = Math.abs(buildX - posY);
-							
-							if (!game.build(buildX, buildY) || (checkX > 1 && checkY > 1))
-								System.out.println("Build action failed, please try again");
-							else if (checkX <= 1 && checkY <= 1) {
-								game.build(buildX, buildY);
-								repeat = false;
-							}
 
-						} while (!game.build(buildX, buildY));
+							if ((checkX > 1 || checkY > 1))
+								System.out.println("Build action failed, please try again");
+							else if (game.build(buildX, buildY))
+								break;
+							
+						} while (repeat);
 
 						System.out.println(game);
 					}
