@@ -31,7 +31,6 @@ public class FileReaderGame {
 
 		boolean turn = true; // True stands for first player
 		boolean win = false;
-		boolean stuck = false;
 
 		Worker[] workers = game.getWorkers();
 
@@ -65,7 +64,6 @@ public class FileReaderGame {
 					System.out.println();
 					System.out.println(player1 + " is stuck!");
 					System.out.println("****Congratulations " + player2 + ", you have won!****");
-					stuck = true;
 					win = true;
 				}
 			} else if (!turn) {
@@ -75,7 +73,6 @@ public class FileReaderGame {
 					System.out.println();
 					System.out.println(player2 + " is stuck!");
 					System.out.println("****Congratulations " + player1 + ", you have won!****");
-					stuck = true;
 					win = true;
 				}
 			}
