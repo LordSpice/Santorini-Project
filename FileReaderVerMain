@@ -107,12 +107,10 @@ public class FileReaderGame {
 			if (game.hasWon()) {
 				win = true;
 				if (turn) {
-					System.out.println();
 					System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 					System.out.println();
 					System.out.println("****Congratulations " + player1 + ", you have won!****");
 				} else {
-					System.out.println();
 					System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 					System.out.println();
 					System.out.println("****Congratulations " + player2 + ", you have won!****");
