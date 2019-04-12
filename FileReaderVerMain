@@ -52,12 +52,12 @@ public class FileReaderGame {
 		System.out.println();
 
 		while (!win) {
-			
+
 			if (turn)
 				System.out.println("The turn is for player: " + player1);
 			else
 				System.out.println("The turn is for player: " + player2);
-			
+
 			if (game.isTrapped(0) && game.isTrapped(1)) {
 				System.out.println(); // Just for aesthetics
 				System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
@@ -76,46 +76,44 @@ public class FileReaderGame {
 				win = true;
 			}
 
-			if (!stuck) {
-				String worker = file.next();
-				int posX = file.nextInt();
-				int posY = file.nextInt();
-				int workNum = 0;
+			String worker = file.next();
+			int posX = file.nextInt();
+			int posY = file.nextInt();
+			int workNum = 0;
 
-				for (int i = 0; i < workers.length; i++) {
-					if (workers[i].getName().equalsIgnoreCase(worker)) {
-						workNum = i;
-						break;
-					}
+			for (int i = 0; i < workers.length; i++) {
+				if (workers[i].getName().equalsIgnoreCase(worker)) {
+					workNum = i;
+					break;
 				}
-
-				System.out.println("Moving worker: " + workers[workNum].getName() + " to " + posX + " " + posY);
-				workers[workNum].move(posX, posY, game);
-				System.out.println(game);
-				System.out.println();
-
-				int buildX = file.nextInt();
-				int buildY = file.nextInt();
-
-				System.out.println("Building at position: " + buildX + ", " + buildY);
-				game.build(buildX, buildY);
-				System.out.println(game);
-				System.out.println();
 			}
 
-			if (game.hasWon()) {
-				win = true;
-				if (turn) {
-					System.out.println();
-					System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-					System.out.println();
-					System.out.println("****Congratulations " + player1 + ", you have won!****");
-				} else {
-					System.out.println();
-					System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-					System.out.println();
-					System.out.println("****Congratulations " + player2 + ", you have won!****");
-				}
+			System.out.println("Moving worker: " + workers[workNum].getName() + " to " + posX + " " + posY);
+			workers[workNum].move(posX, posY, game);
+			System.out.println(game);
+			System.out.println();
+
+			int buildX = file.nextInt();
+			int buildY = file.nextInt();
+
+			System.out.println("Building at position: " + buildX + ", " + buildY);
+			game.build(buildX, buildY);
+			System.out.println(game);
+			System.out.println();
+		}
+
+		if (game.hasWon()) {
+			win = true;
+			if (turn) {
+				System.out.println();
+				System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+				System.out.println();
+				System.out.println("****Congratulations " + player1 + ", you have won!****");
+			} else {
+				System.out.println();
+				System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+				System.out.println();
+				System.out.println("****Congratulations " + player2 + ", you have won!****");
 			}
 
 			turn = !turn;
