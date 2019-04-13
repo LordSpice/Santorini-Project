@@ -39,9 +39,9 @@ public class SantoriniGame {
 		String rep = "#### 0 ####### 1 ####### 2 ####### 3 ####### 4 ####"; // rep == representation
 		rep += "\n";
 
-		for (int row = 0; row < board.length; row++) { // Edit
+		for (int row = 0; row < board.length; row++) {
 			rep += row + " ";
-			for (int col = 0; col < board[row].length; col++) { // Edit
+			for (int col = 0; col < board[row].length; col++) {
 				String block = "";
 				if (board[row][col].equalsIgnoreCase("")) {
 					block += "";
@@ -60,7 +60,7 @@ public class SantoriniGame {
 					}
 				}
 
-				for (int i = 0; block.length() < 7; i++) {
+				for (int i = 0; block.length() < 7; i++) { // Just for aesthetics
 					block += " ";
 				}
 
@@ -121,7 +121,7 @@ public class SantoriniGame {
 		ArrayList<Integer> neighbours = getNeighbours(posX, posY);
 
 		ArrayList<Boolean> move = new ArrayList<>();
-		
+
 		for (int index = 0; index < neighbours.size(); index += 2) {
 			if (Math.abs(neighbours.get(index) - workers[i].getPositionX()) <= 1
 					&& Math.abs(neighbours.get(index + 1) - workers[i].getPositionY()) <= 1
@@ -132,7 +132,8 @@ public class SantoriniGame {
 				boolean noWorker = true;
 
 				for (int j = 0; j < workers.length; j++) {
-					if (workers[j].getPositionX() == neighbours.get(index) && workers[j].getPositionY() == neighbours.get(index + 1)) {
+					if (workers[j].getPositionX() == neighbours.get(index)
+							&& workers[j].getPositionY() == neighbours.get(index + 1)) {
 						noWorker = false;
 						break;
 					}
@@ -143,14 +144,15 @@ public class SantoriniGame {
 				} else
 					move.add(false);
 
-			}
+			} else
+				move.add(false);
 		}
-		
+
 		for (int j = 0; j < move.size(); j++) {
 			if (move.get(j))
 				return false;
 		}
-		
+
 		return true;
 	}
 
