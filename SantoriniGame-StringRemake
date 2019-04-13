@@ -72,7 +72,7 @@ public class SantoriniGame {
 			}
 
 			if (row < board.length - 1)
-			rep += "\n" + "#-------------------------------------------------#";
+				rep += "\n" + "#-------------------------------------------------#";
 			rep += "\n";
 		}
 
@@ -125,9 +125,7 @@ public class SantoriniGame {
 		ArrayList<Boolean> move = new ArrayList<>();
 
 		for (int index = 0; index < neighbours.size(); index += 2) {
-			if (Math.abs(neighbours.get(index) - workers[i].getPositionX()) <= 1
-					&& Math.abs(neighbours.get(index + 1) - workers[i].getPositionY()) <= 1
-					&& !board[neighbours.get(index)][neighbours.get(index + 1)].equalsIgnoreCase("bbbd")
+			if (!board[neighbours.get(index)][neighbours.get(index + 1)].equalsIgnoreCase("bbbd")
 					&& board[neighbours.get(index)][neighbours.get(index + 1)]
 							.length() <= board[workers[i].getPositionX()][workers[i].getPositionY()].length() + 1) {
 
