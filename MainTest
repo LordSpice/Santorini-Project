@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class MainTest {
+public class UserInputMain {
 
 	public static void main(String args[]) {
 
@@ -135,15 +135,24 @@ public class MainTest {
 						System.out.println("****Congratulations " + player2 + ", you have won!****");
 					}
 				}
-				
-				System.out.println("Reset? (y/n)");
-				String ans = input.next();
-				if (ans.contains("y")) {
-					game.reset();
-					win = true;
-					start = 0;
+
+				if (win) {
+					System.out.println();
+					System.out.println("Would you like to restart? ");
+					String reply = input.next();
+					reply = reply.toLowerCase();
+					if (reply.contains("y")) {
+						System.out.println();
+						System.out.println("****Reseting Board****");
+						System.out.println();
+						game.reset();
+						start = 0;
+					} else {
+						System.out.println();
+						System.out.println("****Now exiting game****");
+					}
 				}
-				
+
 				turn = !turn;
 			}
 		}
