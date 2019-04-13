@@ -60,7 +60,8 @@ public class SantoriniGame {
 					}
 				}
 
-				for (int i = 0; block.length() < 7; i++) { // Just for aesthetics
+				for (@SuppressWarnings("unused")
+				int i = 0; block.length() < 7; i++) { // Just for aesthetics
 					block += " ";
 				}
 
@@ -70,6 +71,7 @@ public class SantoriniGame {
 					rep += block + " " + row;
 			}
 
+			if (row < board.length - 1)
 			rep += "\n" + "#-------------------------------------------------#";
 			rep += "\n";
 		}
@@ -78,7 +80,7 @@ public class SantoriniGame {
 		return rep;
 	}
 
-	public boolean build(int positionX, int positionY) { // Should the method build as well?
+	public boolean build(int positionX, int positionY) {
 
 		for (int i = 0; i < workers.length; i++) { // To check if a worker occupies the space
 			if (workers[i].getPositionX() == positionX && workers[i].getPositionY() == positionY) {
@@ -217,7 +219,7 @@ public class SantoriniGame {
 
 	public boolean isCabin(int i, int j) {
 		boolean flag = false;
-		if (i >= 0 && i < board.length && j >= 0 && j < board[0].length) {
+		if (i >= 0 && i < board.length && j >= 0 && j < board[i].length) {
 			flag = true;
 		}
 		return flag;
