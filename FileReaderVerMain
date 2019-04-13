@@ -2,122 +2,148 @@ import java.util.Scanner;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class FileReaderGame {
+public class FileInputMain {
 
 	public static void main(String args[]) {
 
-		Scanner file = null;
 
-		try {
-			file = new Scanner(new FileInputStream("Game.txt"));
-		} catch (FileNotFoundException ERROR) {
-			System.out.println("File not found!");
-			System.exit(0);
-		}
+		Scanner input = new Scanner(System.in); // Used in applying reset method
+		int start = 0;
+		
+		while (start == 0) {
+			start++;
 
-		System.out.println("############ Santorini ############");
+			Scanner file = null;
 
-		String player1 = file.next();
-		String player2 = file.next();
-
-		System.out.println();
-
-		System.out.println("Player1 is: " + player1);
-		System.out.println("Player2 is: " + player2);
-
-		System.out.println();
-
-		SantoriniGame game = new SantoriniGame();
-
-		boolean turn = true; // True stands for first player
-		boolean win = false;
-
-		Worker[] workers = game.getWorkers();
-
-		System.out.println("Placing workers");
-		System.out.println();
-
-		for (int i = 0; i < workers.length; i++) {
-			String worker = file.next();
-			int posX = file.nextInt();
-			int posY = file.nextInt();
-			workers[i] = new Worker(worker);
-			workers[i].placeWorker(posX, posY);
-		}
-
-		game.setWorkers(workers);
-
-		System.out.println(game);
-		System.out.println();
-
-		while (!win) {
-
-			if (turn)
-				System.out.println("The turn is for player: " + player1);
-			else
-				System.out.println("The turn is for player: " + player2);
-
-			if (turn) {
-				if (game.isTrapped(0) && game.isTrapped(1)) {
-					System.out.println(); // Just for aesthetics
-					System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-					System.out.println();
-					System.out.println(player1 + " is stuck!");
-					System.out.println("****Congratulations " + player2 + ", you have won!****");
-					win = true;
-				}
-			} else if (!turn) {
-				if (game.isTrapped(2) && game.isTrapped(3)) {
-					System.out.println();
-					System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-					System.out.println();
-					System.out.println(player2 + " is stuck!");
-					System.out.println("****Congratulations " + player1 + ", you have won!****");
-					win = true;
-				}
+			try {
+				file = new Scanner(new FileInputStream("Game(Win).txt"));
+			} catch (FileNotFoundException ERROR) {
+				System.out.println("File not found!");
+				System.exit(0);
 			}
 
-			if (!win) {
+			System.out.println("############ Santorini ############");
+
+			String player1 = file.next();
+			String player2 = file.next();
+
+			System.out.println();
+
+			System.out.println("Player1 is: " + player1);
+			System.out.println("Player2 is: " + player2);
+
+			System.out.println();
+
+			SantoriniGame game = new SantoriniGame();
+
+			boolean turn = true; // True stands for first player
+			boolean win = false;
+
+			Worker[] workers = game.getWorkers();
+
+			System.out.println("Placing workers");
+			System.out.println();
+
+			for (int i = 0; i < workers.length; i++) {
 				String worker = file.next();
 				int posX = file.nextInt();
 				int posY = file.nextInt();
-				int workNum = 0;
+				workers[i] = new Worker(worker);
+				workers[i].placeWorker(posX, posY);
+			}
 
-				for (int i = 0; i < workers.length; i++) {
-					if (workers[i].getName().equalsIgnoreCase(worker)) {
-						workNum = i;
-						break;
+			game.setWorkers(workers);
+
+			System.out.println(game);
+			System.out.println();
+
+			while (!win) {
+
+				if (turn)
+					System.out.println("The turn is for player: " + player1);
+				else
+					System.out.println("The turn is for player: " + player2);
+
+				if (turn) {
+					if (game.isTrapped(0) && game.isTrapped(1)) {
+						System.out.println(); // Just for aesthetics
+						System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+						System.out.println();
+						System.out.println(player1 + " is stuck!");
+						System.out.println("****Congratulations " + player2 + ", you have won!****");
+						win = true;
+					}
+				} else if (!turn) {
+					if (game.isTrapped(2) && game.isTrapped(3)) {
+						System.out.println();
+						System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+						System.out.println();
+						System.out.println(player2 + " is stuck!");
+						System.out.println("****Congratulations " + player1 + ", you have won!****");
+						win = true;
 					}
 				}
 
-				System.out.println("Moving worker: " + workers[workNum].getName() + " to " + posX + " " + posY);
-				workers[workNum].move(posX, posY, game);
-				System.out.println(game);
-				System.out.println();
+				if (!win) {
+					String worker = file.next();
+					int posX = file.nextInt();
+					int posY = file.nextInt();
+					int workNum = 0;
 
-				int buildX = file.nextInt();
-				int buildY = file.nextInt();
+					for (int i = 0; i < workers.length; i++) {
+						if (workers[i].getName().equalsIgnoreCase(worker)) {
+							workNum = i;
+							break;
+						}
+					}
 
-				System.out.println("Building at position: " + buildX + ", " + buildY);
-				game.build(buildX, buildY);
-				System.out.println(game);
-				System.out.println();
-			}
-
-			if (game.hasWon()) {
-				win = true;
-				if (turn) {
-					System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+					System.out.println("Moving worker: " + workers[workNum].getName() + " to " + posX + " " + posY);
+					workers[workNum].move(posX, posY, game);
+					System.out.println(game);
 					System.out.println();
-					System.out.println("****Congratulations " + player1 + ", you have won!****");
-				} else {
-					System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+
+					int buildX = file.nextInt();
+					int buildY = file.nextInt();
+
+					System.out.println("Building at position: " + buildX + ", " + buildY);
+					game.build(buildX, buildY);
+					System.out.println(game);
 					System.out.println();
-					System.out.println("****Congratulations " + player2 + ", you have won!****");
 				}
+
+				if (game.hasWon()) {
+					win = true;
+					if (turn) {
+						System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+						System.out.println();
+						System.out.println("****Congratulations " + player1 + ", you have won!****");
+					} else {
+						System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+						System.out.println();
+						System.out.println("****Congratulations " + player2 + ", you have won!****");
+					}
+				}
+
+				if (win) {
+					System.out.println();
+					System.out.println("Would you like to restart? ");
+					String reply = input.next();
+					reply = reply.toLowerCase();
+					if (reply.contains("y")) {
+						System.out.println();
+						System.out.println("****Reseting Board****");
+						System.out.println();
+						game.reset();
+						start = 0;
+					} else {
+						System.out.println();
+						System.out.println("****Now exiting game****");
+					}
+				}
+
+				turn = !turn;
 			}
-			
-			turn = !turn;
 		}
+		input.close();
 	}
 }
